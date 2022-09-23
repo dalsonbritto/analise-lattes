@@ -1,0 +1,46 @@
+# Script para reproduzir o seguinte gráfico: https://twitter.com/DalsonFigueired/status/1573048529874030593
+# Lembrando que os dados originais estão disponíveis em: https://pensaraeducacao.com.br/blog/financiamento-a-pesquisa-um-projeto-de-destruicao-nacional/
+# Todos os comandos serão comentados com o objetivo de facilitar a reprodução do código
+
+rm(list = ls()) # Isso serve para limpar a sua área de trabalho. O PC vai ficar mais rápido e o ambiente mais clean 
+
+library(ggplot2) # Pacote exigido para fazer o gráfico
+
+
+ano <- c(2000:2020) # cria um objeto chamado ano, que será a variável do eixo X variando entre 2000 e 2020
+y <- c(4.08,
+       5.20,
+       4.58,
+       4.33,
+       3.98,
+       4.52,
+       4.79,
+       5.90,
+       7.43,
+       10.18,
+       10.53,
+       10.88,
+       11.25,
+       12.78,
+       13.09,
+       13.97,
+       9.43,
+       8.4,
+       6.74,
+       6.08,
+       4.40) # cria um objeto chamado y, variável de interesse que representa o orçamento total (FNDCT, CNPq e CAPES)
+
+df <- data.frame(ano, y) # junta ano e y em formato de uma planilha de trabbalho 
+
+ggplot (df,
+        aes(ano, y)) + geom_line(size = 1.5, 
+                                 col = "#009900", alpha = .3) +
+  geom_point(size = 10, col = "#009900", alpha = .1) +
+  theme_bw() +
+  labs(title = "Orçamento dos principais fundos de apoio à pesquisa científica e tecnológica no Brasil",
+       subtitle = "FNDCT, CNPq e CAPES (bilhões deflacionados pelo IPCA de 2019)",
+       x = "",
+       y = "R$",
+       caption = "Fonte: https://pensaraeducacao.com.br/blog/financiamento-a-pesquisa-um-projeto-de-destruicao-nacional/") + 
+  geom_text (aes(label = y), col = "black", size = 6) +
+  theme(text = element_text(size = 20)) # produz o gráfico
